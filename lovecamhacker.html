@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Quiz for My Girlfriend</title>
+    <style>
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="question-container">
+        <p id="question"></p>
+    </div>
+    <div id="options-container">
+        <button onclick="checkAnswer(0)">Yes</button>
+        <button onclick="checkAnswer(1)">Yes</button>
+        <button onclick="checkAnswer(2)">Yes</button>
+        <button onclick="checkAnswer(3)">Yes</button>
+        <button onclick="checkAnswer(4)">Yes</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "1. This website may be dangerous. Do you wish to continue?",
+            options: ["Yes", "No"],
+            correctAnswers: [0, 1]
+        },
+        {
+            question: "2. Browser does not recommend you to continue. You are free to discontinue from this website by pressing 'No'.",
+            options: ["Yes", "No"],
+            correctAnswers: [0, 1]
+        },
+        {
+            question: "3. This website may provide the creator to get access to your device camera and microphone. You want to continue?",
+            options: ["Yes", "No"],
+            correctAnswers: [0, 1]
+        },
+        {
+            question: "4. The creator may get access to all the devices connected with the wifi. Continue?",
+            options: ["Yes", "No"],
+            correctAnswers: [0, 1]
+        },
+        {
+            question: "5. All the devices connected with your local network are getting accessed by the creator.",
+            options: ["Continue"],
+            correctAnswers: [0]
+        },
+        {
+            question: "6. The creator is getting access to the camera and microphones of all devices. Continue?",
+            options: ["Continue"],
+            correctAnswers: [0]
+        },
+        {
+            question: "7. You trust me this much vave? Then I can't leave you. Continue?",
+            options: ["Continue"],
+            correctAnswers: [0]
+        },
+        {
+            question: "8. Vave, thank you for trusting me this much. You will not regret this. Continue?",
+            options: ["Continue"],
+            correctAnswers: [0]
+        },
+        {
+            question: "9. Thakkuduveee, will you marry me?",
+            options: ["Yes", "Yes", "Yes", "Yes", "Yes"],
+            correctAnswers: [0, 1, 2, 3, 4]
+        },
+        // Add more questions following the same structure
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+        const questionElement = document.getElementById("question");
+        const optionsContainer = document.getElementById("options-container");
+
+        questionElement.textContent = questions[currentQuestion].question;
+
+        optionsContainer.innerHTML = "";
+        questions[currentQuestion].options.forEach((option, index) => {
+            const button = document.createElement("button");
+            button.textContent = option;
+            button.onclick = () => checkAnswer(index);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(userAnswer) {
+        const correctAnswers = questions[currentQuestion].correctAnswers;
+
+        // Update the button styles based on the correctness
+        questions[currentQuestion].options.forEach((option, index) => {
+            const button = document.getElementsByTagName('button')[index];
+            button.style.backgroundColor = correctAnswers.includes(index) ? 'green' : 'red';
+        });
+
+        // Move to the next question or display a completion message
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            setTimeout(() => {
+                alert("Thank youuuuu!");
+            }, 1000); // Delayed alert for a smoother visual transition
+        }
+    }
+
+    // Initial load
+    loadQuestion();
+</script>
+
+</body>
+</html>
